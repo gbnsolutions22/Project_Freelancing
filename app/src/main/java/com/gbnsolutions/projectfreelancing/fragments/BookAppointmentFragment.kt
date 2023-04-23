@@ -112,13 +112,13 @@ class BookAppointmentFragment : Fragment() {
             val service = serviceSpinner.selectedItem.toString()
             val slot = slotSpinner.selectedItem.toString()
 
-            if (name.isEmpty() || !name.equals("")){
+            if (name.isEmpty() || name.equals("")){
                 Toast.makeText(context,"Please enter Title of project",Toast.LENGTH_SHORT).show()
             }
-            if (service.isEmpty() || !service.equals("")){
+            if (service.isEmpty() || service.equals("")){
                 Toast.makeText(context,"Please select Domain of project",Toast.LENGTH_SHORT).show()
             }
-            if (slot.isEmpty() || !slot.equals("No Slots Available!") || !slot.equals("")){
+            if (slot.isEmpty() || slot.equals("No Slots Available!") || slot.equals("")){
                 Toast.makeText(context,"Please select Slot of project",Toast.LENGTH_SHORT).show()
             }
             else{
