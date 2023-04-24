@@ -31,4 +31,6 @@
 ### For web application
 
 - React JS
+- Node Js
+- Prisma
 - Firebase
