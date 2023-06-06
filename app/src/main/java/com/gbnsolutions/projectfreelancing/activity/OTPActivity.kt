@@ -14,8 +14,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.gbnsolutions.projectfreelancing.R
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import java.util.concurrent.TimeUnit
 
 class OTPActivity : AppCompatActivity() {
@@ -34,6 +33,7 @@ class OTPActivity : AppCompatActivity() {
     private lateinit var OTP: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var phoneNumber: String
+    private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otpactivity)
@@ -163,7 +163,30 @@ class OTPActivity : AppCompatActivity() {
 
     private fun sendToHome() {
         firebaseUserID = auth.currentUser!!.uid
-        startActivity(Intent(this, UserDetails::class.java).putExtra("phoneNumber",phoneNumber).putExtra("uid",firebaseUserID))
+        var hasAccount = false
+        database.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    for (data in snapshot.children){
+                        val userDetails: UserDetails ?= data.getValue(UserDetails::class.java)
+                        if (userDetails!=null){
+                            if (userDetails.firebaseUserID==firebaseUserID){
+                                hasAccount=true
+                                startActivity(Intent(this@OTPActivity,HomeScreen::class.java))
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        if (!hasAccount){
+            startActivity(Intent(this, UserDetails::class.java).putExtra("phoneNumber",phoneNumber).putExtra("uid",firebaseUserID))
+        }
     }
 
     private fun addTextChangeListener() {
@@ -177,6 +200,7 @@ class OTPActivity : AppCompatActivity() {
 
     private fun init() {
         auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference.child("Users")
         progressBar = findViewById(R.id.otpProgressBar)
         verifyBtn = findViewById(R.id.verifyOTPBtn)
         resendTV = findViewById(R.id.resendTextView)

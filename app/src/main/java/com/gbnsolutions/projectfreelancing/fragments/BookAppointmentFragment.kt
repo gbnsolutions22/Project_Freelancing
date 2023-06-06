@@ -1,24 +1,19 @@
 package com.gbnsolutions.projectfreelancing.fragments
 
-import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.gbnsolutions.projectfreelancing.R
 import com.gbnsolutions.projectfreelancing.model.Domain
 import com.gbnsolutions.projectfreelancing.model.Slots
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BookAppointmentFragment : Fragment() {
     lateinit var mAuth: FirebaseAuth

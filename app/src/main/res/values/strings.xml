@@ -7,4 +7,7 @@
     <string name="submit">SUBMIT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="project_freelancing">Project Freelancing</string>
+    <string name="_91">  +91</string>
+    <string name="send_otp">SEND OTP</string>
 </resources>
